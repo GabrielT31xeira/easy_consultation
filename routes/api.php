@@ -25,4 +25,6 @@ Route::middleware(['api'])->group(function () {
     Route::post('/medicos/{id_medico}/pacientes', [\App\Http\Controllers\Api\MedicoController::class, 'doctorPatient']);
     Route::post('/medicos', [\App\Http\Controllers\Api\MedicoController::class, 'store']);
     Route::get('/medicos/{id_medico}/pacientes', [\App\Http\Controllers\Api\PacienteController::class, 'getPatientFromDoctor']);
+    Route::post('/pacientes', [\App\Http\Controllers\Api\PacienteController::class, 'store']);
+    Route::put('/pacientes/{id_paciente}', [\App\Http\Controllers\Api\PacienteController::class, 'update']);
 });
