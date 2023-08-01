@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Medico extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $table = 'medico';
 
     protected $fillable = [
         'id',
@@ -26,6 +27,6 @@ class Medico extends Model
 
     public function paciente(): BelongsToMany
     {
-        return $this->belongsToMany(Paciente::class);
+        return $this->belongsToMany(Paciente::class, 'medico_paciente', 'medico_id', 'paciente_id');
     }
 }

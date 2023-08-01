@@ -11,12 +11,16 @@ class Paciente extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'paciente';
     protected $fillable = [
-
+        'id',
+        'nome',
+        'cpf',
+        'celular'
     ];
 
     public function medico(): BelongsToMany
     {
-        return $this->belongsToMany(Medico::class);
+        return $this->belongsToMany(Medico::class, 'medico_paciente', 'paciente_id', 'medico_id',);
     }
 }

@@ -3,45 +3,39 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 class AuthController extends Controller
 {
     public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $credentials = $request->only('email', 'password');
+            $validate = Validator::make($request->all(),[
+                'email' => 'required',
+                'password' => 'required'
+            ]);
 
-            if (!Auth::attempt($credentials)) {
-                return response()->json(['error' => 'Credenciais não encontradas!'], 401);
+            if ($validate->fails()) {
+                return response()->json(['error' => $validate->errors()], 422);
             }
 
-            $user = Auth::user();
-            $token = $user->createToken('MyApp')->accessToken;
+            $credentials = $request->only('email', 'password');
 
-            return response()->json(['message' => 'Login realizado com sucesso', 'token' => $token]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro por parte do servidor, tente novamente mais tarde!','error' => $e->getMessage()], 500);
-        }
-    }
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
 
-    public function logout(Request $request): \Illuminate\Http\JsonResponse
-    {
-        try {
-            $request->user()->token()->revoke();
-            return response()->json(['message' => 'Saiu da conta com sucesso!']);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro por parte do servidor, tente novamente mais tarde!','error' => $e->getMessage()], 500);
-        }
-    }
-    public function refresh(Request $request): \Illuminate\Http\JsonResponse
-    {
-        try {
-            $token = $request->user()->refreshToken;
             return response()->json(['token' => $token]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro por parte do servidor, tente novamente mais tarde!', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro por parte do servidor, tente novamente mais tarde!','error' => $e->getMessage()], 500);
         }
     }
 
+    public function index()
+    {
+        return User::all();
+    }
 }
