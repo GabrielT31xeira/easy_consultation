@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'index']);
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
 Route::get('/cidades', [\App\Http\Controllers\Api\CidadeController::class, 'index']);

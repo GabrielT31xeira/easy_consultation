@@ -33,9 +33,4 @@ class AuthController extends Controller
             return response()->json(['message' => 'Erro por parte do servidor, tente novamente mais tarde!','error' => $e->getMessage()], 500);
         }
     }
-
-    public function index()
-    {
-        return User::all();
-    }
 }
