@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 100);
             $table->string('especialidade', 100);
-            $table->unsignedBigInteger('cidades_id');
-            $table->foreign('cidades_id')->references('id')->on('cidades');
+            $table->unsignedBigInteger('cidade_id');
+            $table->foreign('cidade_id')->references('id')->on('cidades');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
