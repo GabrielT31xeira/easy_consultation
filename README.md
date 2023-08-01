@@ -5,7 +5,7 @@
 ### Comandos nescessarios 
 Para executar o projeto: ```./vendor/bin/sail up```
 
-Seeders do projeto:
+Seeders do projeto (Rodar dentro do container laravel):
 
 ```php artisan db:seed --class=UserSeeder```
 
@@ -25,3 +25,5 @@ DB_DATABASE=easyconsultationdb
 DB_USERNAME=easyconsultation
 DB_PASSWORD=root312@
 ```
+## Banco de dados
+![img.png](img.png)
