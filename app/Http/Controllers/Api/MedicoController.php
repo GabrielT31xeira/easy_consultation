@@ -67,8 +67,8 @@ class MedicoController extends Controller
     {
         try {
             $validate = Validator::make($request->all(),[
-                'nome' => 'required',
-                'especialidade' => 'required',
+                'nome' => 'required|string|max:100',
+                'especialidade' => 'required|string|max:100',
                 'cidade_id' => 'required'
             ]);
             if ($validate->fails()) {

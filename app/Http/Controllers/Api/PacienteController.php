@@ -25,9 +25,9 @@ class PacienteController extends Controller
     {
         try {
             $validate = Validator::make($request->all(),[
-                'nome' => 'required',
-                'cpf' => 'required',
-                'celular' => 'required'
+                'nome' => 'required|string|max:100',
+                'cpf' => 'required|string|max:20',
+                'celular' => 'required|string|max:20'
             ]);
             if ($validate->fails()) {
                 return response()->json(['error' => $validate->errors()], 422);
